@@ -1,0 +1,52 @@
+[
+  {
+    "id": "T001",
+    "userId": "24-1766",
+    "userType": "Student",
+    "userName": "Carlos James Martinez",
+    "category": "Network",
+    "description": "Cannot connect to campus Wi-Fi in Computer Laboratory 2.",
+    "priority": "High",
+    "status": "IN PROGRESS",
+    "createdAt": "2026-10-18T12:36:17.699Z",
+    "updatedAt": "2026-10-21T03:49:11.224Z",
+    "remarks": ""
+  },
+  {
+    "id": "T002",
+    "userId": "FAC-101",
+    "userType": "Faculty",
+    "userName": "Stephen Marion Gregory",
+    "category": "Account",
+    "description": "Forgot LMS faculty portal password.",
+    "priority": "Medium",
+    "status": "IN PROGRESS",
+    "createdAt": "2026-10-18T12:45:00.000Z",
+    "updatedAt": "2026-10-18T13:15:00.000Z"
+  },
+  {
+    "id": "T003",
+    "userId": "24-1766",
+    "userType": "Student",
+    "userName": "Carlos James Martinez",
+    "category": "Software",
+    "description": "Unable to access student portal grade viewing module.",
+    "priority": "Low",
+    "status": "OPEN",
+    "createdAt": "2026-10-18T13:00:00.000Z",
+    "updatedAt": "2026-10-18T13:00:00.000Z"
+  },
+  {
+    "id": "T004",
+    "userId": "24-1767",
+    "userType": "Student",
+    "userName": "Jushua Bogay",
+    "category": "Hardware",
+    "description": "Computer unit #14 in Laboratory 2 display is not turning on.",
+    "priority": "High",
+    "status": "OPEN",
+    "createdAt": "2026-10-18T13:10:00.000Z",
+    "updatedAt": "2026-10-21T03:59:07.601Z",
+    "remarks": ""
+  }
+]

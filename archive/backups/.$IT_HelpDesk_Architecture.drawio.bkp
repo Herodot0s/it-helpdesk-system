@@ -1,0 +1,397 @@
+<mxfile host="Electron" agent="DSH" pages="2">
+  <diagram id="use-case-diagram" name="Use Case Diagram">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" parent="1" style="shape=rect;fillColor=#f8fafc;strokeColor=#94a3b8;dashed=0;strokeWidth=2;verticalAlign=top;fontStyle=1;fontSize=16;fontColor=#0f172a;spacingTop=12;" value="IT Help Desk System" vertex="1">
+          <mxGeometry height="640" width="560" x="250" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_user" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=2;fontStyle=1;fontSize=12;" value="User&#xa;(Student / Faculty)" vertex="1">
+          <mxGeometry height="110" width="60" x="70" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_it" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;fontStyle=1;fontSize=12;" value="IT Support&#xa;Staff" vertex="1">
+          <mxGeometry height="110" width="60" x="920" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_auth" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=2;fontStyle=1;fontSize=12;" value="Authenticate with&#xa;ID Credentials" vertex="1">
+          <mxGeometry height="60" width="180" x="440" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_create" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0284c7;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Create Support Ticket" vertex="1">
+          <mxGeometry height="60" width="180" x="330" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_own" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0284c7;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="View Own Submitted&#xa;Tickets Only" vertex="1">
+          <mxGeometry height="60" width="180" x="330" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_search_own" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0284c7;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Search Own Tickets&#xa;by ID / Category" vertex="1">
+          <mxGeometry height="60" width="180" x="330" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_all" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="View All Campus&#xa;Tickets" vertex="1">
+          <mxGeometry height="60" width="180" x="580" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_filter_all" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Filter All Tickets&#xa;(Status &amp; Category)" vertex="1">
+          <mxGeometry height="60" width="180" x="580" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_update" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Update Ticket Status&#xa;(In-Progress / Open)" vertex="1">
+          <mxGeometry height="60" width="180" x="580" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_resolve" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Resolve Ticket" vertex="1">
+          <mxGeometry height="60" width="180" x="580" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_audit" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Inspect Ticket Details &amp;&#xa;Live Split Pane" vertex="1">
+          <mxGeometry height="60" width="180" x="580" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="e_u_auth" edge="1" parent="1" source="actor_user" style="endArrow=none;html=1;strokeColor=#0284c7;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_u_create" edge="1" parent="1" source="actor_user" style="endArrow=none;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="uc_create">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_u_view" edge="1" parent="1" source="actor_user" style="endArrow=none;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="uc_view_own">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_u_search" edge="1" parent="1" source="actor_user" style="endArrow=none;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="uc_search_own">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_it_auth" edge="1" parent="1" source="actor_it" style="endArrow=none;html=1;strokeColor=#d97706;strokeWidth=1.5;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_it_view_all" edge="1" parent="1" source="actor_it" style="endArrow=none;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="uc_view_all">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_it_filter" edge="1" parent="1" source="actor_it" style="endArrow=none;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="uc_filter_all">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_it_update" edge="1" parent="1" source="actor_it" style="endArrow=none;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="uc_update">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_it_resolve" edge="1" parent="1" source="actor_it" style="endArrow=none;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="uc_resolve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_it_audit" edge="1" parent="1" source="actor_it" style="endArrow=none;html=1;strokeColor=#d97706;strokeWidth=1.5;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc_audit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="process-flowchart" name="Process Flowchart">
+    <mxGraphModel dx="1414" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fc_start" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=2;fontStyle=1;fontSize=13;fontColor=#14532d;" value="START" vertex="1">
+          <mxGeometry height="40" width="140" x="630" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_auth" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="692" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_input_role" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Input Selected Role&#xa;(Student/Faculty or IT Staff)" vertex="1">
+          <mxGeometry height="50" width="230" x="585" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_role_input_check" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Is Role ==&#xa;&#39;IT Staff&#39;?" vertex="1">
+          <mxGeometry height="75" width="150" x="625" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_input_stud" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Input Student or&#xa;Faculty ID" vertex="1">
+          <mxGeometry height="50" width="190" x="390" y="202.5" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_input_it" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Input IT Staff ID&#xa;&amp; Password" vertex="1">
+          <mxGeometry height="50" width="190" x="820" y="202.5" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_verify_proc" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Verify Credentials Against&#xa;System Records" vertex="1">
+          <mxGeometry height="45" width="200" x="600" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_auth_check" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Are credentials&#xa;valid?" vertex="1">
+          <mxGeometry height="75" width="160" x="620" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_auth_error" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fee2e2;strokeColor=#dc2626;strokeWidth=1.5;fontSize=12;fontColor=#991b1b;fontStyle=1;" value="Display Authentication Error&#xa;(Invalid ID / Credentials)" vertex="1">
+          <mxGeometry height="50" width="210" x="1030" y="382.5" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_role_check" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Is Authenticated&#xa;Role == &#39;IT Staff&#39;?" vertex="1">
+          <mxGeometry height="80" width="160" x="620" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_resolve" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Auto-Resolve User Name from ID&#xa;&amp; Fetch Filtered &#39;My Tickets&#39;" vertex="1">
+          <mxGeometry height="50" width="220" x="280" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_display" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;fontSize=12;" value="Display User Portal &amp;&#xa;&#39;My Tickets&#39; Table" vertex="1">
+          <mxGeometry height="50" width="200" x="290" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_user_loop" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="382" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_act_in" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8fafc;strokeColor=#64748b;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Input User Action Selection&#xa;(Search/View or Submit New)" vertex="1">
+          <mxGeometry height="50" width="210" x="285" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_action" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Action ==&#xa;&#39;Submit New&#39;?" vertex="1">
+          <mxGeometry height="75" width="150" x="315" y="745" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_search_in" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8fafc;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;" value="Input Search / Filter&#xa;Criteria" vertex="1">
+          <mxGeometry height="45" width="160" x="70" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_search_out" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8fafc;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;" value="Display Filtered Personal&#xa;Tickets in Table" vertex="1">
+          <mxGeometry height="45" width="170" x="65" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_user_val" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="382" y="845" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_form_input" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e0f2fe;strokeColor=#0284c7;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Input Ticket Details:&#xa;Category, Priority, Description" vertex="1">
+          <mxGeometry height="55" width="210" x="285" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_validate" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Are all required&#xa;fields filled?" vertex="1">
+          <mxGeometry height="75" width="150" x="315" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_err" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fee2e2;strokeColor=#dc2626;strokeWidth=1.5;fontSize=11;fontColor=#991b1b;fontStyle=1;" value="Display Form Error&#xa;(All fields required)" vertex="1">
+          <mxGeometry height="45" width="160" x="105" y="975" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_gen_id" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;fontSize=12;" value="Auto-generate Ticket ID (T00X)&#xa;&amp; Link to Student/Faculty ID" vertex="1">
+          <mxGeometry height="45" width="200" x="290" y="1065" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_save_ticket" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Save Ticket Record&#xa;(Status = &#39;OPEN&#39;, UserID Linked)" vertex="1">
+          <mxGeometry height="45" width="200" x="290" y="1135" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_confirm" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="Display Confirmation Modal&#xa;&amp; Refreshed &#39;My Tickets&#39; Queue" vertex="1">
+          <mxGeometry height="50" width="220" x="280" y="1205" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_user_logout" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="382" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_user_logout" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Log out of&#xa;User Portal?" vertex="1">
+          <mxGeometry height="75" width="150" x="315" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_portal" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Load All Campus Support&#xa;Tickets &amp; Compute Metrics" vertex="1">
+          <mxGeometry height="50" width="220" x="890" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_display" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="Display IT Operations&#xa;Dashboard &amp; Ticket Queue" vertex="1">
+          <mxGeometry height="50" width="210" x="895" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_it_loop" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="992" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_filter" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8fafc;strokeColor=#64748b;strokeWidth=1.5;fontSize=12;" value="Input Queue Filter / Search&#xa;(By ID, User, Category, Status)" vertex="1">
+          <mxGeometry height="50" width="220" x="890" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_decision" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Update a Ticket&#xa;Status?" vertex="1">
+          <mxGeometry height="75" width="150" x="925" y="745" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_action" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Input Selected Ticket &amp; New Status&#xa;(&#39;IN PROGRESS&#39;, &#39;RESOLVED&#39;, &#39;OPEN&#39;)" vertex="1">
+          <mxGeometry height="55" width="240" x="880" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_save_update" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Persist Status Update in File&#xa;&amp; Update Timestamp (updatedAt)" vertex="1">
+          <mxGeometry height="45" width="220" x="890" y="1065" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_recompute" parent="1" style="shape=rect;rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;fontSize=12;" value="Recompute Dashboard Summary&#xa;Statistics" vertex="1">
+          <mxGeometry height="45" width="220" x="890" y="1135" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_confirm" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="Display Update Notification&#xa;&amp; Refreshed Table" vertex="1">
+          <mxGeometry height="50" width="210" x="895" y="1205" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_it_logout" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="992" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_it_logout" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="Log out of&#xa;IT Console?" vertex="1">
+          <mxGeometry height="75" width="150" x="925" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_tickets" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=1.5;fontSize=12;fontStyle=1;" value="tickets.json&#xa;(Data Store)" vertex="1">
+          <mxGeometry height="65" width="120" x="640" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_end" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fee2e2;strokeColor=#dc2626;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="692" y="1430" as="geometry" />
+        </mxCell>
+        <mxCell id="fc_end" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;strokeWidth=2;fontStyle=1;fontSize=13;fontColor=#7f1d1d;" value="END" vertex="1">
+          <mxGeometry height="40" width="140" x="630" y="1475" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_start_conn" edge="1" parent="1" source="fc_start" style="endArrow=classic;html=1;strokeColor=#334155;strokeWidth=1.5;" target="conn_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_conn_role" edge="1" parent="1" source="conn_auth" style="endArrow=classic;html=1;strokeColor=#334155;strokeWidth=1.5;" target="fc_input_role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_role_to_check" edge="1" parent="1" source="fc_input_role" style="endArrow=classic;html=1;strokeColor=#334155;strokeWidth=1.5;" target="fc_role_input_check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_rin_no" edge="1" parent="1" source="fc_role_input_check" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;fontColor=#0284c7;fontStyle=1;" target="fc_input_stud" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_rin_yes" edge="1" parent="1" source="fc_role_input_check" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;fontColor=#d97706;fontStyle=1;" target="fc_input_it" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_stud_to_ver" edge="1" parent="1" source="fc_input_stud" style="endArrow=classic;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="fc_verify_proc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="485" y="322.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_it_to_ver" edge="1" parent="1" source="fc_input_it" style="endArrow=classic;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="fc_verify_proc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="915" y="322.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_ver_to_auth" edge="1" parent="1" source="fc_verify_proc" style="endArrow=classic;html=1;strokeColor=#334155;strokeWidth=1.5;" target="fc_auth_check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_auth_no" edge="1" parent="1" source="fc_auth_check" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontStyle=1;" target="fc_auth_error" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_auth_retry" edge="1" parent="1" source="fc_auth_error" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="conn_auth">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1135" y="455" />
+              <mxPoint x="1280" y="455" />
+              <mxPoint x="1280" y="88" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_auth_yes" edge="1" parent="1" source="fc_auth_check" style="endArrow=classic;html=1;strokeColor=#16a34a;strokeWidth=1.5;fontColor=#16a34a;fontStyle=1;" target="fc_role_check" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_role_user" edge="1" parent="1" source="fc_role_check" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;fontColor=#0284c7;fontStyle=1;" target="fc_user_resolve" value="NO (Student/Faculty)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_role_it" edge="1" parent="1" source="fc_role_check" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;fontColor=#d97706;fontStyle=1;" target="fc_it_portal" value="YES (IT Staff)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_res_disp" edge="1" parent="1" source="fc_user_resolve" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_display">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_disp_conn" edge="1" parent="1" source="fc_user_display" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="conn_user_loop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_conn_actin" edge="1" parent="1" source="conn_user_loop" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_act_in">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_actin_dec" edge="1" parent="1" source="fc_user_act_in" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_action">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_search" edge="1" parent="1" source="fc_user_action" style="endArrow=classic;html=1;strokeColor=#64748b;strokeWidth=1.5;fontColor=#64748b;fontStyle=1;" target="fc_user_search_in" value="NO (View/Search)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_sin_sout" edge="1" parent="1" source="fc_user_search_in" style="endArrow=classic;html=1;strokeColor=#64748b;strokeWidth=1.5;" target="fc_user_search_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_search_to_logout" edge="1" parent="1" source="fc_user_search_out" style="endArrow=classic;html=1;strokeColor=#64748b;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="conn_user_logout">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="900" />
+              <mxPoint x="40" y="900" />
+              <mxPoint x="40" y="1288" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_u_sub" edge="1" parent="1" source="fc_user_action" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;fontColor=#0284c7;fontStyle=1;" target="conn_user_val" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_conn_form" edge="1" parent="1" source="conn_user_val" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_form_input">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_input_to_val" edge="1" parent="1" source="fc_user_form_input" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_val_no" edge="1" parent="1" source="fc_user_validate" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontStyle=1;" target="fc_user_err" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_val_retry" edge="1" parent="1" source="fc_user_err" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="conn_user_val">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="1040" />
+              <mxPoint x="80" y="1040" />
+              <mxPoint x="80" y="853" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_u_val_yes" edge="1" parent="1" source="fc_user_validate" style="endArrow=classic;html=1;strokeColor=#16a34a;strokeWidth=1.5;fontColor=#16a34a;fontStyle=1;" target="fc_gen_id" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_gen_to_save" edge="1" parent="1" source="fc_gen_id" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_save_ticket">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_save_to_confirm" edge="1" parent="1" source="fc_save_ticket" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_confirm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_save_to_ds" edge="1" parent="1" source="fc_save_ticket" style="endArrow=classic;html=1;strokeColor=#7c3aed;strokeWidth=1.5;dashed=1;fontColor=#7c3aed;fontSize=10;" target="ds_tickets" value="Write">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_confirm_to_conn" edge="1" parent="1" source="fc_user_confirm" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="conn_user_logout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_conn_to_logout" edge="1" parent="1" source="conn_user_logout" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;" target="fc_user_logout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_u_keep_working" edge="1" parent="1" source="fc_user_logout" style="endArrow=classic;html=1;strokeColor=#0284c7;strokeWidth=1.5;fontColor=#0284c7;fontStyle=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="conn_user_loop" value="NO (Keep Working)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="1357.5" />
+              <mxPoint x="550" y="643" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_u_logout_yes" edge="1" parent="1" source="fc_user_logout" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontStyle=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="conn_end" value="YES">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="1438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_it_load_disp" edge="1" parent="1" source="fc_it_portal" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_it_display">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_disp_conn" edge="1" parent="1" source="fc_it_display" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="conn_it_loop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_conn_filt" edge="1" parent="1" source="conn_it_loop" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_it_filter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_filter_to_dec" edge="1" parent="1" source="fc_it_filter" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_it_decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_dec_no" edge="1" parent="1" source="fc_it_decision" style="endArrow=classic;html=1;strokeColor=#64748b;strokeWidth=1.5;fontColor=#64748b;fontStyle=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="conn_it_logout" value="NO (View Only)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="782.5" />
+              <mxPoint x="1180" y="1288" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_it_dec_yes" edge="1" parent="1" source="fc_it_decision" style="endArrow=classic;html=1;strokeColor=#16a34a;strokeWidth=1.5;fontColor=#16a34a;fontStyle=1;" target="fc_it_action" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_act_to_save" edge="1" parent="1" source="fc_it_action" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_save_update">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_save_to_ds" edge="1" parent="1" source="fc_save_update" style="endArrow=classic;html=1;strokeColor=#7c3aed;strokeWidth=1.5;dashed=1;fontColor=#7c3aed;fontSize=10;" target="ds_tickets" value="Update">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_save_to_recomp" edge="1" parent="1" source="fc_save_update" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_it_recompute">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_recomp_to_confirm" edge="1" parent="1" source="fc_it_recompute" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_it_confirm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_confirm_to_conn" edge="1" parent="1" source="fc_it_confirm" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="conn_it_logout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_conn_to_logout" edge="1" parent="1" source="conn_it_logout" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;" target="fc_it_logout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_it_keep_working" edge="1" parent="1" source="fc_it_logout" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;fontColor=#d97706;fontStyle=1;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="conn_it_loop" value="NO (Keep Working)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="1357.5" />
+              <mxPoint x="830" y="643" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_it_logout_yes" edge="1" parent="1" source="fc_it_logout" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontStyle=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="conn_end" value="YES">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="1438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fe_conn_to_end" edge="1" parent="1" source="conn_end" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;" target="fc_end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

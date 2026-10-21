@@ -1,0 +1,27 @@
+[
+  {
+    "id": "24-1766",
+    "name": "Carlos James Martinez",
+    "userType": "Student",
+    "email": "cmartinez@university.edu"
+  },
+  {
+    "id": "FAC-101",
+    "name": "Stephen Marion Gregory",
+    "userType": "Faculty",
+    "email": "sgregory@university.edu"
+  },
+  {
+    "id": "24-1767",
+    "name": "Jushua Bogay",
+    "userType": "Student",
+    "email": "jbogay@university.edu"
+  },
+  {
+    "id": "admin",
+    "name": "IT Support",
+    "userType": "IT Staff",
+    "password": "admin123",
+    "email": "admin@qcu.edu.ph"
+  }
+]

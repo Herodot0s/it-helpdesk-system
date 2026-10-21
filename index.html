@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QCU (Quezon City University) IT Help Desk System</title>
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- CDN DaisyUI + Tailwind (with local stylesheet fallback) -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind = {
+      config: {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <img src="qcu-logo.png" alt="QCU (Quezon City University) Logo" class="w-10 h-10 object-contain" />
+      <div>
+        <h1 class="text-xl font-extrabold text-slate-900 tracking-tight leading-tight">QCU IT Help Desk System</h1>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- Active Session Badge -->
+      <div id="sessionBadgeContainer" class="hidden items-center gap-2 px-3.5 py-1.5 bg-slate-100 rounded-full border border-slate-200 text-sm">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
+        <span id="sessionRoleText" class="font-bold text-slate-800"></span>
+        <span id="sessionDivider" class="text-slate-600 font-bold" aria-hidden="true">|</span>
+        <span id="sessionUserText" class="text-slate-700 font-semibold"></span>
+      </div>
+
+      <!-- Log Out / Switch Role Button -->
+      <button id="btnSwitchRole" class="hidden btn btn-outline btn-xs px-3 text-slate-700 hover:bg-slate-100 border-slate-300 font-bold" aria-label="Switch Role or Logout">
+        Switch Role / Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT -->
+  <main class="container-fluid max-w-7xl mx-auto p-6 flex-1 w-full">
+    <!-- Screen reader live announcer -->
+    <div id="liveAnnouncer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: AUTHENTICATION / PORTAL GATEWAY    -->
+    <!-- ========================================== -->
+    <section id="authView" class="max-w-4xl mx-auto my-8">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">University IT Services Authentication</h2>
+        <p class="text-base text-slate-600 font-medium mt-1.5">Please select your role and enter your credentials to access the ticketing services.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        
+        <!-- CARD A: STUDENT / FACULTY LOGIN -->
+        <div class="card bg-white border border-slate-200 shadow-sm p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-primary flex items-center justify-center border border-blue-100 shadow-xs" aria-hidden="true">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5" />
+                </svg>
+              </div>
+              <span class="badge badge-info badge-sm font-semibold">Students &amp; Faculty Only</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Student &amp; Faculty Portal</h3>
+            <p class="text-sm text-slate-600 mt-1 mb-4 font-medium">Authenticate with your university-issued student or faculty ID.</p>
+
+            <form id="userLoginForm" class="space-y-3.5">
+              <div class="form-control">
+                <label for="authUserId" class="label pb-1">
+                  <span class="label-text">Student / Faculty ID <span class="text-red-600" aria-hidden="true">*</span></span>
+                </label>
+                <input
+                  type="text"
+                  id="authUserId"
+                  value="24-1766"
+                  placeholder="e.g. XX-XXXX or FAC-XXX"
+                  autocomplete="username"
+                  class="input input-bordered w-full text-sm font-semibold"
+                  aria-required="true"
+                  required
+                />
+              </div>
+
+              <!-- Non-textbox Account Name display (auto-resolves from ID) -->
+              <div class="form-control">
+                <div class="label pb-1 flex items-center justify-between">
+                  <span class="label-text font-bold text-slate-800">Account Name</span>
+                </div>
+                <div id="authUserNameDisplay" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-between text-sm min-h-[42px]">
+                  <span id="authResolvedName" class="font-bold text-slate-900">Carlos James Martinez</span>
+                  <span id="authResolvedBadge" class="badge badge-info badge-xs font-semibold">Student</span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-full text-white font-bold text-sm border-0 mt-3 shadow-xs">
+                Log In to User Portal
+              </button>
+            </form>
+          </div>
+
+          <!-- Quick Test Demo Buttons -->
+          <div class="mt-5 pt-4 border-t border-slate-100">
+            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Quick Demo Accounts:</p>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" class="btn btn-xs btn-outline border-slate-300 text-slate-700 hover:bg-blue-50 font-bold" onclick="fillDemoUser('24-1766')">
+                Carlos James Martinez (Student)
+              </button>
+              <button type="button" class="btn btn-xs btn-outline border-slate-300 text-slate-700 hover:bg-blue-50 font-bold" onclick="fillDemoUser('FAC-101')">
+                Stephen Marion Gregory (Faculty)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD B: IT SUPPORT STAFF LOGIN -->
+        <div class="card bg-white border border-slate-200 shadow-sm p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100 shadow-xs" aria-hidden="true">
+                <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                </svg>
+              </div>
+              <span class="badge badge-warning badge-sm font-semibold">IT Staff Only</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">IT Support Operations</h3>
+            <p class="text-sm text-slate-600 mt-1 mb-4 font-medium">Restricted access console for university IT personnel and network administrators.</p>
+
+            <form id="staffLoginForm" class="space-y-3.5">
+              <div class="form-control">
+                <label for="authStaffId" class="label pb-1">
+                  <span class="label-text">Staff Personnel ID <span class="text-red-600" aria-hidden="true">*</span></span>
+                </label>
+                <input
+                  type="text"
+                  id="authStaffId"
+                  value="admin"
+                  placeholder="e.g. IT-SUPPORT or admin"
+                  autocomplete="username"
+                  class="input input-bordered w-full text-sm font-semibold"
+                  aria-required="true"
+                  required
+                />
+              </div>
+
+              <div class="form-control">
+                <label for="authStaffPassword" class="label pb-1">
+                  <span class="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  id="authStaffPassword"
+                  value="admin123"
+                  placeholder="Enter staff password"
+                  autocomplete="current-password"
+                  class="input input-bordered w-full text-sm font-semibold"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-warning w-full text-white font-bold text-sm border-0 mt-5 shadow-xs">
+                Log In to IT Staff Console
+              </button>
+            </form>
+          </div>
+
+          <!-- Quick Test Demo Button -->
+          <div class="mt-5 pt-4 border-t border-slate-100">
+            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Quick Demo Account:</p>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" class="btn btn-xs btn-outline border-slate-300 text-slate-700 hover:bg-amber-50 font-bold" onclick="fillDemoStaff('admin', 'admin123')">
+                admin (IT Support)
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Auth Alert Banner -->
+      <div id="authAlert" role="alert" aria-live="polite" class="hidden mt-6 p-3 rounded-lg text-sm font-bold text-center"></div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: USER PORTAL (STUDENT / FACULTY)    -->
+    <!-- ========================================== -->
+    <section id="userPortalView" class="hidden">
+      <!-- Portal Sub-Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 border-b border-slate-200 gap-2">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+            <svg class="w-6 h-6 text-primary inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5" />
+            </svg>
+            <span>Student &amp; Faculty Support Portal</span>
+          </h2>
+          <p class="text-sm text-slate-600 font-medium">
+            Authenticated as <strong id="userPortalHeaderName" class="text-slate-800"></strong> 
+            (<span id="userPortalHeaderId" class="font-mono text-primary font-bold"></span>)
+          </p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <div class="inline-flex p-1 bg-slate-100 rounded-lg border border-slate-200" role="tablist" aria-label="Portal section navigation">
+            <button type="button" id="tabUserSubmit" role="tab" aria-selected="true" class="px-4 py-2 rounded-md text-sm font-bold transition-all bg-white text-primary shadow-xs">
+              Submit Ticket
+            </button>
+            <button type="button" id="tabUserHistory" role="tab" aria-selected="false" class="px-4 py-2 rounded-md text-sm font-bold text-slate-600 hover:text-slate-900 transition-all">
+              My Submitted Tickets (<span id="userTicketCountBadge">0</span>)
+            </button>
+          </div>
+          <button id="btnUserRefresh" class="btn btn-primary btn-sm font-bold text-white border-0" aria-label="Refresh my tickets">
+            Refresh My Tickets
+          </button>
+        </div>
+      </div>
+
+      <!-- PANEL A: CREATE SUPPORT TICKET FORM -->
+      <div id="panelUserSubmit" class="max-w-2xl mx-auto">
+        <div class="card bg-white border border-slate-200 shadow-sm p-6">
+            <div class="flex items-center justify-between mb-1">
+              <h3 class="card-title text-lg font-bold text-primary flex items-center gap-1.5">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Submit IT Concern</span>
+              </h3>
+              <span class="badge badge-outline text-xs font-semibold text-slate-700">New Request</span>
+            </div>
+            <p class="text-sm text-slate-600 mb-4 font-medium">
+              A unique Ticket ID will be generated and tracked under your account.
+            </p>
+
+            <form id="createTicketForm" class="space-y-3.5">
+              <!-- Read-only Authenticated User Info -->
+              <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200 text-sm">
+                <div>
+                  <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Account ID</span>
+                  <span id="formUserDisplayId" class="font-mono font-bold text-primary text-base"></span>
+                </div>
+                <div>
+                  <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Full Name</span>
+                  <span id="formUserDisplayName" class="font-bold text-slate-800 truncate block text-base"></span>
+                </div>
+              </div>
+
+              <!-- Category -->
+              <div class="form-control">
+                <label for="selectCategory" class="label pb-1">
+                  <span class="label-text">Issue Category <span class="text-red-600" aria-hidden="true">*</span></span>
+                </label>
+                <select id="selectCategory" class="select select-bordered w-full text-sm font-semibold" aria-required="true" required>
+                  <option value="" disabled selected>Select category...</option>
+                  <option value="Network">Network (Wi-Fi, LAN, Internet)</option>
+                  <option value="Hardware">Hardware (PC, Monitor, Printer)</option>
+                  <option value="Software">Software (OS, Office, Dev Tools)</option>
+                  <option value="Account">Account (LMS, Portal, Password)</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+
+              <!-- Priority -->
+              <div class="form-control">
+                <label for="selectPriority" class="label pb-1">
+                  <span class="label-text">Priority Level <span class="text-red-600" aria-hidden="true">*</span></span>
+                </label>
+                <select id="selectPriority" class="select select-bordered w-full text-sm font-semibold" aria-required="true" required>
+                  <option value="Low">Low (Minor inconvenience)</option>
+                  <option value="Medium" selected>Medium (Standard request)</option>
+                  <option value="High">High (Urgent / Work stopped)</option>
+                </select>
+              </div>
+
+              <!-- Problem Description -->
+              <div class="form-control">
+                <label for="textareaDescription" class="label pb-1">
+                  <span class="label-text">Problem Description <span class="text-red-600" aria-hidden="true">*</span></span>
+                </label>
+                <textarea
+                  id="textareaDescription"
+                  rows="4"
+                  placeholder="Describe your technical problem clearly (device, error message)..."
+                  class="textarea textarea-bordered w-full text-sm font-medium"
+                  aria-required="true"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Form Alert -->
+              <div id="formAlert" role="alert" aria-live="polite" class="hidden p-3 rounded-md text-sm font-bold"></div>
+
+              <!-- Submit -->
+              <button type="submit" id="btnSubmitTicket" class="btn btn-primary w-full text-white font-bold text-sm border-0 shadow-xs py-2.5">
+                Submit Support Ticket
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL B: MY SUBMITTED TICKETS TABLE -->
+      <div id="panelUserHistory" class="hidden w-full">
+        <div class="card bg-white border border-slate-200 shadow-sm p-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="card-title text-lg font-bold text-slate-800 flex items-center gap-2">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>My Submitted Tickets</span>
+              </h3>
+              <p class="text-sm text-slate-600 font-medium">Click any row to inspect complete details.</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <!-- Search user's own tickets -->
+              <input
+                type="text"
+                id="userSearchQuery"
+                aria-label="Search my tickets"
+                placeholder="Search my tickets..."
+                class="input input-bordered input-sm w-48 text-sm font-semibold bg-slate-50 focus:bg-white"
+              />
+              <!-- Status Filter -->
+              <select id="userFilterStatus" aria-label="Filter tickets by status" class="select select-bordered select-sm text-sm font-semibold bg-white min-w-[125px]">
+                <option value="ALL">All Status</option>
+                <option value="OPEN">OPEN</option>
+                <option value="IN PROGRESS">IN PROGRESS</option>
+                <option value="RESOLVED">RESOLVED</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- TABLE OF USER TICKETS -->
+          <div class="table-container border border-slate-200 rounded-lg overflow-x-auto bg-white" tabindex="0" aria-label="My submitted tickets table">
+            <table class="table table-zebra w-full">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 text-left">
+                  <th scope="col" class="py-2.5 px-3 w-16">ID</th>
+                  <th scope="col" class="py-2.5 px-3 w-24">Category</th>
+                  <th scope="col" class="py-2.5 px-3 w-20">Priority</th>
+                  <th scope="col" class="py-2.5 px-3">Description</th>
+                  <th scope="col" class="py-2.5 px-3 w-24">Submitted</th>
+                  <th scope="col" class="py-2.5 px-3 w-32 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="userTicketsTableBody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+
+            <div id="userEmptyState" class="hidden p-8 text-center text-slate-600">
+              <p class="text-base font-semibold">You have not submitted any tickets matching this criteria.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: IT SUPPORT STAFF DASHBOARD         -->
+    <!-- ========================================== -->
+    <section id="itStaffView" class="hidden">
+      <!-- Portal Sub-Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 border-b border-slate-200 gap-2">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+            <svg class="w-6 h-6 text-amber-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+            </svg>
+            <span>IT Support Operations Center</span>
+          </h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="badge badge-warning text-xs font-bold">IT Staff Console</span>
+          <button id="btnStaffRefresh" class="btn btn-primary btn-sm font-bold text-white border-0" aria-label="Refresh master ticket queue">
+            Refresh All Queue
+          </button>
+        </div>
+      </div>
+
+      <!-- STATS COUNTERS -->
+      <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" aria-label="Ticket queue summary statistics">
+        <div class="stat-card flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider">Total</p>
+            <span id="statTotal" class="text-3xl font-extrabold text-slate-900 mt-1 block">0</span>
+          </div>
+          <div class="badge badge-ghost text-xs font-bold">Total</div>
+        </div>
+
+        <div class="stat-card flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-amber-800 uppercase tracking-wider">Open Tickets</p>
+            <span id="statOpen" class="text-3xl font-extrabold text-amber-700 mt-1 block">0</span>
+          </div>
+          <div class="badge badge-warning text-xs font-bold">Pending</div>
+        </div>
+
+        <div class="stat-card flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-sky-800 uppercase tracking-wider">In Progress</p>
+            <span id="statInProgress" class="text-3xl font-extrabold text-sky-700 mt-1 block">0</span>
+          </div>
+          <div class="badge badge-info text-xs font-bold">Working</div>
+        </div>
+
+        <div class="stat-card flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Resolved</p>
+            <span id="statResolved" class="text-3xl font-extrabold text-emerald-700 mt-1 block">0</span>
+          </div>
+          <div class="badge badge-success text-xs font-bold">Closed</div>
+        </div>
+      </section>
+
+      <!-- MASTER QUEUE SPLIT PANE -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT: MASTER TICKET LIST (lg:col-span-7) -->
+        <div class="lg:col-span-7">
+          <div class="card bg-white border border-slate-200 shadow-sm p-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div>
+                <h3 class="card-title text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  <span>Campus Ticket Queue</span>
+                </h3>
+                <p class="text-sm text-slate-600 font-medium">Select any ticket to inspect and manage in the inspector panel.</p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <!-- Search Box -->
+                <input
+                  type="text"
+                  id="staffSearchQuery"
+                  aria-label="Search all tickets"
+                  placeholder="Search ID, User, Requester..."
+                  class="input input-bordered input-sm w-48 text-sm font-semibold bg-slate-50 focus:bg-white"
+                />
+
+                <!-- Status Filter -->
+                <select id="staffFilterStatus" aria-label="Filter queue by status" class="select select-bordered select-sm text-sm font-semibold bg-white min-w-[125px]">
+                  <option value="ALL">All Statuses</option>
+                  <option value="OPEN">OPEN</option>
+                  <option value="IN PROGRESS">IN PROGRESS</option>
+                  <option value="RESOLVED">RESOLVED</option>
+                </select>
+
+                <!-- Category Filter -->
+                <select id="staffFilterCategory" aria-label="Filter queue by category" class="select select-bordered select-sm text-sm font-semibold bg-white min-w-[130px]">
+                  <option value="ALL">All Categories</option>
+                  <option value="Network">Network</option>
+                  <option value="Hardware">Hardware</option>
+                  <option value="Software">Software</option>
+                  <option value="Account">Account</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- TABLE OF ALL TICKETS -->
+            <div class="table-container border border-slate-200 rounded-lg overflow-x-auto bg-white" tabindex="0" aria-label="Campus support tickets table">
+              <table class="table table-zebra w-full">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 text-left">
+                    <th scope="col" class="py-2.5 px-3 w-16">ID</th>
+                    <th scope="col" class="py-2.5 px-3">Requester</th>
+                    <th scope="col" class="py-2.5 px-3 w-20">Type</th>
+                    <th scope="col" class="py-2.5 px-3 w-20">Category</th>
+                    <th scope="col" class="py-2.5 px-3 w-16">Priority</th>
+                    <th scope="col" class="py-2.5 px-3 w-20">Submitted</th>
+                    <th scope="col" class="py-2.5 px-3 w-28 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="staffTicketsTableBody">
+                  <!-- Rendered via renderer.js -->
+                </tbody>
+              </table>
+
+              <div id="staffEmptyState" class="hidden p-8 text-center text-slate-600">
+                <p class="text-base font-semibold">No tickets found matching the selected filter criteria.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: LIVE TICKET INSPECTOR PANE (lg:col-span-5) -->
+        <div class="lg:col-span-5">
+          <div class="card bg-white border border-slate-200 shadow-sm p-5 sticky top-20" id="staffInspectorCard">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+              <h3 class="card-title text-lg font-bold text-slate-800 flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Live Inspector</span>
+              </h3>
+              <div id="paneBadgeContainer" class="flex items-center gap-1.5">
+                <span id="paneStatusBadge"></span>
+                <span id="panePriorityBadge"></span>
+              </div>
+            </div>
+
+            <!-- Empty Inspector Placeholder -->
+            <div id="paneEmptyState" class="p-8 text-center text-slate-600">
+              <div class="mb-2 flex justify-center text-slate-600" aria-hidden="true">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+                </svg>
+              </div>
+              <p class="text-sm font-bold text-slate-700">No Ticket Selected</p>
+              <p class="text-sm text-slate-600 mt-1 font-medium">Select any ticket from the queue to view full details and manage in real time.</p>
+            </div>
+
+            <!-- Populated Inspector Content -->
+            <div id="paneContent" class="hidden space-y-4 text-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-slate-700 uppercase font-bold tracking-wider block">Ticket Reference</span>
+                  <span id="paneTicketId" class="font-mono font-extrabold text-primary text-xl"></span>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs text-slate-700 uppercase font-bold tracking-wider block">Submitted</span>
+                  <span id="paneCreatedAt" class="font-mono text-slate-700 text-sm font-semibold"></span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <div>
+                  <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Requester</span>
+                  <span id="paneUserName" class="font-bold text-slate-900 text-sm block"></span>
+                  <span id="paneUserId" class="font-mono text-slate-600 text-xs font-semibold"></span>
+                </div>
+                <div>
+                  <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Category &amp; Role</span>
+                  <span id="paneCategory" class="font-bold text-slate-900 text-sm block"></span>
+                  <span id="paneUserType" class="text-slate-600 text-xs font-semibold"></span>
+                </div>
+                <div class="col-span-2 pt-1 border-t border-slate-200/60 flex justify-between">
+                  <span class="text-slate-700 text-xs uppercase font-bold tracking-wider">Last Updated</span>
+                  <span id="paneUpdatedAt" class="font-mono text-slate-600 text-xs font-semibold"></span>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-slate-800 block text-xs font-bold uppercase tracking-wider mb-1.5">Problem Description</span>
+                <div id="paneDescription" class="p-3.5 bg-slate-50/70 border border-slate-200 rounded-md text-slate-900 text-sm font-medium whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto"></div>
+              </div>
+
+              <!-- Technician Remarks Input -->
+              <div id="paneRemarksSection">
+                <label for="paneStaffRemarks" class="text-slate-800 block text-xs font-bold uppercase tracking-wider mb-1.5">Technician Resolution Notes / Remarks</label>
+                <textarea
+                  id="paneStaffRemarks"
+                  rows="2"
+                  placeholder="Record diagnosis, root cause, or resolution steps..."
+                  class="textarea textarea-bordered w-full text-sm font-medium"
+                ></textarea>
+              </div>
+
+              <!-- Quick Triage Actions -->
+              <div class="pt-3 border-t border-slate-200">
+                <span class="text-slate-800 block text-xs font-bold uppercase tracking-wider mb-2">Triage Action:</span>
+                <div id="paneActionButtons" class="flex items-center gap-2"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: SUCCESS CONFIRMATION                -->
+  <!-- ========================================== -->
+  <div id="confirmationModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="confirmationModalTitle">
+    <div class="modal-content card bg-white border border-slate-200 shadow-2xl p-6 max-w-md w-full">
+      <div class="flex items-center gap-3 text-emerald-600 mb-3">
+        <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center font-bold text-xl border border-emerald-200" aria-hidden="true">
+          ✓
+        </div>
+        <div>
+          <h4 id="confirmationModalTitle" class="font-extrabold text-lg text-slate-900">Ticket Submitted Successfully</h4>
+          <p class="text-sm text-slate-600 font-medium">Your IT support request has been logged and assigned to the support queue.</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 my-4 space-y-2.5 text-sm">
+        <div class="flex justify-between items-center">
+          <span class="text-slate-600 font-bold">Ticket ID:</span>
+          <span id="modalTicketId" class="font-mono font-extrabold text-primary text-base"></span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-slate-600 font-bold">Requester:</span>
+          <span id="modalUserName" class="font-bold text-slate-900"></span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-slate-600 font-bold">Category:</span>
+          <span id="modalCategory" class="text-slate-800 font-semibold"></span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-slate-600 font-bold">Status:</span>
+          <span id="modalStatus" class="badge badge-warning badge-sm"></span>
+        </div>
+      </div>
+
+      <div class="p-3 bg-blue-50/70 border border-blue-100 rounded-md text-sm text-blue-900 mb-4 flex items-center gap-2 font-medium">
+        <span class="text-primary font-bold" aria-hidden="true">ℹ</span>
+        <span>Average campus IT turnaround is within 2 to 4 working hours.</span>
+      </div>
+
+      <div class="flex justify-end">
+        <button id="btnCloseModal" type="button" class="btn btn-primary btn-sm px-6 text-white border-0 font-bold">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: TICKET DETAIL INSPECTOR             -->
+  <!-- ========================================== -->
+  <div id="ticketDetailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+    <div class="modal-content card bg-white border border-slate-200 shadow-2xl p-6 max-w-lg w-full">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <div class="flex items-center gap-2.5">
+          <h4 id="detailModalTitle" class="font-bold text-slate-900 text-base">Ticket Details</h4>
+          <span id="detailTicketId" class="font-mono font-extrabold text-primary text-lg"></span>
+          <span id="detailStatusBadge"></span>
+          <span id="detailPriorityBadge"></span>
+        </div>
+        <button id="btnCloseTicketDetail" type="button" class="btn btn-ghost btn-xs btn-circle text-slate-600 hover:text-slate-800 text-base font-bold" aria-label="Close ticket detail modal">✕</button>
+      </div>
+
+      <div class="space-y-4 text-sm">
+        <div class="grid grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+          <div>
+            <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Requester</span>
+            <span id="detailUserName" class="font-bold text-slate-900 text-sm block"></span>
+            <span id="detailUserId" class="font-mono text-slate-600 text-xs font-semibold"></span>
+          </div>
+          <div>
+            <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Category</span>
+            <span id="detailCategory" class="font-bold text-slate-900 text-sm block"></span>
+            <span id="detailUserType" class="text-slate-600 text-xs font-semibold"></span>
+          </div>
+          <div class="pt-2 border-t border-slate-200/60">
+            <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Submitted At</span>
+            <span id="detailCreatedAt" class="text-slate-700 font-mono text-xs font-semibold"></span>
+          </div>
+          <div class="pt-2 border-t border-slate-200/60">
+            <span class="text-slate-700 block text-xs uppercase font-bold tracking-wider">Last Updated</span>
+            <span id="detailUpdatedAt" class="text-slate-700 font-mono text-xs font-semibold"></span>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-slate-800 block text-xs font-bold uppercase tracking-wider mb-1.5">Problem Description:</span>
+          <div id="detailDescription" class="p-3.5 bg-white border border-slate-200 rounded-md text-slate-900 text-sm font-medium whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <!-- Technician Resolution Notes / Remarks Display -->
+        <div id="detailRemarksContainer" class="hidden">
+          <span class="text-slate-800 block text-xs font-bold uppercase tracking-wider mb-1.5">Technician Resolution Notes:</span>
+          <div id="detailRemarks" class="p-3.5 bg-emerald-50/70 border border-emerald-200 rounded-md text-emerald-950 text-sm leading-relaxed font-semibold"></div>
+        </div>
+
+        <div id="detailStaffActions" class="hidden pt-3 border-t border-slate-200 flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Update Status:</span>
+          <div id="detailActionButtons" class="flex items-center gap-2"></div>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-4 mt-4 border-t border-slate-100">
+        <button id="btnCloseTicketDetail2" type="button" class="btn btn-outline btn-sm px-6 border-slate-300 text-slate-700 font-bold hover:bg-slate-50">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "it-helpdesk-system",
+  "version": "1.0.0",
+  "description": "IT Help Desk Ticketing System",
+  "main": "main.js",
+  "scripts": {
+    "start": "node run-electron.js",
+    "test": "node test-selfcheck.js"
+  },
+  "keywords": ["helpdesk", "ticketing", "electron"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  }
+}
